@@ -45,23 +45,3 @@ echo "--------------"
 echo "|Process done|"
 echo "--------------"
 echo " "
-
-
-
-### 正確搬移方法sample ###
-
-#$vmName = "TestVM"
-#$tgtDatastore = "datastore"
-#$tgtCluster = "cluster"
-#$tgtPool = "resourcepool"
-#
-#$vm = Get-VM -Name $vmName
-#$ds = Get-Datastore -Name $tgtDatastore
-#$esx = Get-Cluster -Name $tgtCluster | Get-VMHost | Get-Random
-#$rp = Get-ResourcePool -Name $tgtPool
-#
-#$spec = New-Object VMware.Vim.VirtualMachineRelocateSpec
-#$spec.Datastore = $ds.ExtensionData.MoRef
-#$spec.Host = $esx.ExtensionData.MoRef
-#$spec.Pool = $rp.ExtensionData.MoRef
-#$vm.ExtensionData.RelocateVM($spec,"defaultPriority")
