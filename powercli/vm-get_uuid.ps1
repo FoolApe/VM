@@ -1,4 +1,4 @@
-$user='hcl_system@vsphere.local'
+$user='user@vsphere.local'
 $passwd=cat /home/sys-admin/scripts/nimaniuro
 $server = "10.10.10.10" ### Change to your VC IP
 $list = '/Path/To/YourList' ### VM list
