@@ -50,7 +50,7 @@ Foreach($b in get-content $hostname)
     $ip = echo $b |awk '{print $2}'	
 
 	### Delete VMs after they are power-off.
-	get-vm -name $name |where {$_.PowerState -match 'PoweredOff'} |Remove-VM -Confirm:$False
+	get-vm -name $name |where {$_.PowerState -match 'PoweredOff'} |Remove-VM -Confirm:$False -DeletePermanently
 	echo "$name,$ip 刪除" >> $log	
 }
 echo "======== DONE ========" >> $log
