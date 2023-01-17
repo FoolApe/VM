@@ -1,0 +1,21 @@
+---
+- hosts: HOST
+  become: yes
+  gather_facts: false
+  become_user: root
+  tasks:
+    - name: Change hosts.allow
+      shell: "echo 'sshd:IP1 IP2' >> /etc/hosts.allow"
+
+    - name: Allow check
+      shell : "cat /etc/hosts.allow |grep 'ssh'"
+      register: check1
+    - debug : msg={{ check1.stdout }}
+
+    - name: Change hosts.deny
+      shell: "echo 'sshd:ALL' >> /etc/hosts.deny"
+
+    - name: Deny check
+      shell : "cat /etc/hosts.deny |grep 'ssh'"
+      register: check2
+    - debug : msg={{ check2.stdout }}
