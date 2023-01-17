@@ -1,0 +1,15 @@
+---
+- hosts: SSD
+  become: yes
+  gather_facts: false
+  become_user: root
+  tasks:
+    - name: Change hostname
+      shell: "hostnamectl set-hostname {{hostname}}"
+      register: name
+    - debug : msg={{ name.stdout }}
+
+    - name: Check
+      shell : "hostname"
+      register: check
+    - debug : msg={{ check.stdout }}
