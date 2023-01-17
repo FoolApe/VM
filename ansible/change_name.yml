@@ -1,5 +1,5 @@
 ---
-- hosts: SSD
+- hosts: HOST
   become: yes
   gather_facts: false
   become_user: root
