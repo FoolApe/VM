@@ -1,0 +1,36 @@
+---
+- hosts: HOST
+  become: yes
+  gather_facts: false
+  become_user: root
+  tasks:
+
+    - name: add user
+      shell: "useradd NEW_USER"
+ 
+    - name: change password
+      shell: "echo 'NEW_USER:PASSWD' |chpasswd"
+
+
+    - name: Edit sudoers
+      lineinfile:
+        dest: "/etc/sudoers"
+        regexp: ^User_Alias
+        line: "User_Alias ADMINS = NEW_USER"
+
+    - name: create .ssh
+      shell: "mkdir /home/NEW_USER/.ssh"
+
+    - name: edit permission1
+      shell: "chmod -R go= /home/NEW_USER/.ssh"
+
+    - name: edit permission2
+      shell: "chown NEW_USER:NEW_USER /home/cs-admin/.ssh"
+
+    - name: add key
+      shell: "echo 'SSH_KEY NEW_USER@Your_Border' >> /home/NEW_USER/.ssh/authorized_keys"
+
+    - name: Check
+      shell : "cat /home/NEW_USER/.ssh/authorized_keys"
+      register: check
+    - debug : msg={{ check.stdout }}
