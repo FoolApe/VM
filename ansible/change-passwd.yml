@@ -1,0 +1,12 @@
+---
+- hosts: HOST
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Change user Passwd
+      shell: "echo 'PASSWD' | passwd --stdin USER"
+
+    - name: Test
+      shell: "hostname"
+      register: check
+    - debug: msg={{ check.stdout }}
