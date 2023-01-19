@@ -1,0 +1,54 @@
+---
+- hosts: HOST
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Get eth
+      shell: "ip a|grep -B3 '10.200.*.*' |grep mtu |awk -F : '{print $2}' |sed 's/[[:space:]]//g'"
+      register: eth
+    
+    - debug: msg={{ eth.stdout }}
+        
+    - name: Backup eth
+      shell: "cp /etc/sysconfig/network-scripts/ifcfg-{{ item }} /etc/sysconfig/network-scripts/ifcfg-{{ item }}.bak"
+      with_items:
+        - "{{ eth.stdout_lines }}"
+
+    - name: Set eth IP 
+      lineinfile:
+        dest: "/etc/sysconfig/network-scripts/ifcfg-{{ item }}"
+        regexp: ^IPADDR=
+        line: "IPADDR={{ log_ip }}"
+      with_items:
+        - "{{ eth.stdout_lines }}"
+   
+    - name: Set Loginsight server IP
+      lineinfile:
+        dest: "/var/lib/loginsight-agent/liagent.ini"
+        regexp: ^hostname=
+        line: "hostname=10.10.10.10"
+
+    - name: Set down eth
+      shell: "ifdown {{ item }}"
+      with_items:
+        - "{{ eth.stdout_lines }}"
+
+    - name: Set up eth
+      shell: "ifup {{ item }}"
+      with_items:
+        - "{{ eth.stdout_lines }}"
+
+    - name: Stop agent
+      shell: "/etc/init.d/liagentd stop"
+
+    - name: Start agent
+      shell: "/etc/init.d/liagentd start"
+
+    - name: Check agent
+      shell: "/etc/init.d/liagentd status | grep running"
+      register: agent_chk
+
+    - debug: msg={{ agent_chk.stdout }}
+
+
+
