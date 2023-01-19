@@ -1,0 +1,21 @@
+---
+- hosts: HOST
+  become: yes
+  gather_facts: false
+  become_user: root
+  tasks:
+    - name: Transfer RPM to host
+      copy:  
+        src: /tmp/sudo-1.9.5-3.el7.x86_64.rpm 
+        dest: /tmp
+
+    - name: Update sudo to 1.9.5-3
+      shell: "rpm -Uvh /tmp/sudo-1.9.5-3.el7.x86_64.rpm"
+      warn: False
+      register: update
+    - debug : msg={{ update.stdout }}
+
+    - name: Check if update is completed
+      shell : "sudoedit -s"
+      register: check
+    - debug : msg={{ check.stdout }}
