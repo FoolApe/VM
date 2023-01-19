@@ -19,7 +19,7 @@ $rp=Get-ResourcePool -Location (Get-Cluster -Name $cluster) ### Destnation resou
 $spec.Pool = $rp.ExtensionData.MoRef
 
 
-$VMlist = "/Path/to/your/vmotion_list" ### Use VM hostname as content.
+$VMlist = "/Path/to/your/vmotion_list" ### Use VM hostname as content(source).
 '------------------------------- Starting Move VM -------------------------------'
 Foreach($a in get-content $VMlist)
 {
