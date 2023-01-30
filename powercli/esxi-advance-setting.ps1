@@ -1,7 +1,7 @@
 ### Made by       : SYS-Juro
 ### First version : 2020/8/19
 ### Update date	  : 2022/01/27
-### Description   : Change firewall / NFS / / Hyper-Threading / NTP / License-key
+### Description   : Change firewall / NFS / Hyper-Threading / NTP / License-key
 
 $log='/Path/To/Your/Log'
 
