@@ -1,7 +1,7 @@
 ### login sepc
-$user = 'jackeylin'
-$passwd = gc '/home/jackeylin/powercli/.qweasdzxc'
-$server = "172.31.26.101" ### Change to your VC IP
+$user = 'USER'
+$passwd = gc '/PATH/TO/YOUR/PASS'
+$server = "VC_IP" ### Change to your VC IP
 $list = gc '/home/jackeylin/powercli/ntp_list'
 
 echo ""
