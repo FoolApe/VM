@@ -24,7 +24,7 @@ foreach ($vm_node in $vmlist) {
     foreach ($snapshot in $snapshotList) {
         $snapshotName = $snapshot.Name
         Write-Host "Deleting snapshot: $snapshotName"
-        #Remove-Snapshot -Snapshot "$snapshot" -Confirm:$false
+        #Remove-Snapshot -Snapshot ${snapshot} -Confirm:$false
     } 
 
     Write-Host "===================================================="
